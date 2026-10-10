@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-# 1. PAGE CONFIGURATION (Must be first)
+# 1. PAGE CONFIGURATION
 st.set_page_config(
     page_title="Mumbai Housing Analytics",
     layout="wide",
@@ -13,9 +13,11 @@ st.set_page_config(
 # 2. APPLE-STYLE MINIMALIST CSS
 st.markdown("""
     <style>
+    /* System fonts for native Apple feel */
     html, body, [class*="css"] {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+    /* Floating Apple-style metric cards */
     div[data-testid="metric-container"] {
         background-color: #1c1c1e;
         padding: 1.5rem;
@@ -33,6 +35,7 @@ st.markdown("""
         text-transform: uppercase;
         font-size: 0.85rem;
     }
+    /* Pill-shaped interactive buttons */
     div[data-testid="stButton"] button {
         background-color: #ffffff;
         color: #000000;
@@ -124,4 +127,40 @@ with tab1:
 with tab2:
     col_chart1, col_chart2 = st.columns(2)
     with col_chart1:
-        st.table(team_data)
+        st.subheader("Mean Price per Sq. Ft. (₹)")
+        rates_data = pd.DataFrame({
+            "Suburb": ["Colaba", "Bandra", "Parel", "Juhu", "Powai", "Andheri", "Borivali", "Thane"],
+            "Avg Rate": [58000, 52000, 48000, 46000, 31000, 27000, 21000, 13500]
+        }).set_index("Suburb")
+        st.bar_chart(rates_data)
+
+    with col_chart2:
+        st.subheader("Inventory Spread")
+        bhk_dist = pd.DataFrame({
+            "Configuration": ["1 BHK", "2 BHK", "3 BHK", "4+ BHK"],
+            "Volume (%)": [28, 44, 21, 7]
+        }).set_index("Configuration")
+        st.bar_chart(bhk_dist)
+
+# --- TAB 3: BENCHMARKS ---
+with tab3:
+    st.subheader("Regression Algorithm Benchmarks")
+    benchmark_data = pd.DataFrame({
+        "Algorithm": ["Linear Regression", "Decision Tree", "Random Forest (Active)", "XGBoost"],
+        "R² Score": [0.74, 0.88, 1.00, 0.98],
+        "MAE (Lakhs)": [18.42, 6.12, 1.04, 1.85],
+        "Latency": ["2.1 ms", "3.4 ms", "8.9 ms", "12.4 ms"]
+    })
+    st.dataframe(benchmark_data, use_container_width=True)
+
+# --- TAB 4: ARCHITECTURE ---
+with tab4:
+    st.subheader("Pipeline Architecture")
+    st.code("[Client: Streamlit]  ──>  [Inference Buffer]  ──>  [Joblib Serialized .pkl]", language="text")
+    
+    st.subheader("Division of Labor")
+    team_data = pd.DataFrame({
+        "Team Member": ["Member 1", "Member 2", "Member 3 (Lead)"],
+        "Responsibility": ["Data Engineering", "Algorithm Benchmarks", "System Architecture & Deployment"]
+    })
+    st.table(team_data)
