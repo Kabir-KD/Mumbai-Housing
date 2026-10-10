@@ -10,43 +10,34 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. APPLE-STYLE MINIMALIST CSS
+# 2. APPLE-STYLE MINIMALIST CSS (Forced Override)
 st.markdown("""
     <style>
-    /* System fonts for native Apple feel */
     html, body, [class*="css"] {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
     }
-    /* Floating Apple-style metric cards */
     div[data-testid="metric-container"] {
-        background-color: #1c1c1e;
-        padding: 1.5rem;
-        border-radius: 16px;
-        border: 1px solid #333336;
+        background-color: #1c1c1e !important;
+        padding: 1.5rem !important;
+        border-radius: 16px !important;
+        border: 1px solid #333336 !important;
     }
     div[data-testid="stMetricValue"] { 
         font-size: 2.2rem !important; 
-        font-weight: 600; 
-        color: #f5f5f7;
+        font-weight: 600 !important; 
+        color: #f5f5f7 !important;
     }
     div[data-testid="stMetricLabel"] {
-        color: #86868b;
-        font-weight: 500;
-        text-transform: uppercase;
-        font-size: 0.85rem;
+        color: #86868b !important;
+        font-weight: 500 !important;
+        text-transform: uppercase !important;
     }
-    /* Pill-shaped interactive buttons */
     div[data-testid="stButton"] button {
-        background-color: #ffffff;
-        color: #000000;
-        border-radius: 24px;
-        font-weight: 600;
-        border: none;
-        transition: all 0.2s;
-    }
-    div[data-testid="stButton"] button:hover {
-        transform: scale(1.02);
-        background-color: #f5f5f7;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border-radius: 24px !important;
+        font-weight: 600 !important;
+        border: none !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -75,7 +66,7 @@ def load_model():
 model = load_model()
 
 # 5. HEADER
-st.title("Metropolitan Real Estate Engine.")
+st.title("Mumbai Estate Engine")
 st.markdown("Predictive analytics and multivariate regression for Mumbai housing markets.")
 st.divider()
 
@@ -151,7 +142,7 @@ with tab3:
         "MAE (Lakhs)": [18.42, 6.12, 1.04, 1.85],
         "Latency": ["2.1 ms", "3.4 ms", "8.9 ms", "12.4 ms"]
     })
-    st.dataframe(benchmark_data, use_container_width=True)
+    st.dataframe(benchmark_data, use_container_width=True, hide_index=True)
 
 # --- TAB 4: ARCHITECTURE ---
 with tab4:
